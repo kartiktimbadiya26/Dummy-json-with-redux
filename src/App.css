@@ -1,0 +1,240 @@
+a {
+  text-decoration: none !important;
+}
+
+.main-header {
+  background-color: #2874F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 15px 0;
+}
+
+.main-header a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.main-header .part1 {
+  width: 125px;
+}
+
+.main-header .part2 input {
+  border: none !important;
+  padding: 10px;
+  width: 300px;
+}
+
+.main-header .part3 span {
+  font-size: 18px;
+  margin-left: 5px;
+}
+
+.mainbody {
+  padding-top: 25px;
+}
+
+.mainbody .leftpart {
+  border: 1px solid black;
+}
+
+.mainbody .leftpart ul {
+  list-style-type: none;
+}
+
+.mainbody .leftpart li {
+  padding: 5px;
+  margin: 10px;
+  text-transform: capitalize;
+}
+
+.mainbody .leftpart li a {
+  color: black;
+  text-decoration: none;
+}
+
+.mainbody .rightpart {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.mainbody .rightpart .box {
+  height: 550px;
+  width: calc(33.33% - 10px);
+  border: 1px solid black;
+}
+
+.mainbody .rightpart .box .img {
+  width: 100%;
+  height: 225px;
+  overflow: hidden;
+  background-color: #2874F0;
+}
+
+.mainbody .rightpart .box .details {
+  padding: 25px 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 325px;
+}
+
+.mainbody .rightpart .box .details .tital {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.mainbody .rightpart .box .description {
+  height: 78px;
+  overflow: hidden;
+}
+
+.mainbody .rightpart .box .stock {
+  margin-top: 10px;
+  color: #878787;
+}
+
+.mainbody .rightpart .box .stock .rating {
+  background-color: #388E3C;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.mainbody .rightpart .box .prise {
+  font-weight: 700;
+  display: inline-block;
+}
+
+.mainbody .rightpart .box .off {
+  display: inline-block;
+  margin-left: 10px;
+  color: #388E3C;
+}
+
+.mainbody .rightpart .box .discount {
+  text-decoration: line-through;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 12px;
+  color: #878787;
+}
+
+/*  */
+.second-main .description {
+  height: 78px;
+  overflow: hidden;
+}
+
+.second-main .stock {
+  margin-top: 10px;
+  color: #878787;
+}
+
+.second-main .stock .rating {
+  background-color: #388E3C;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.second-main .prise {
+  font-weight: 700;
+  display: inline-block;
+}
+
+.second-main .off {
+  display: inline-block;
+  margin-left: 10px;
+  color: #388E3C;
+}
+
+.second-main .discount {
+  text-decoration: line-through;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 12px;
+  color: #878787;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #FFF;
+  animation: prixClipFix 2s linear infinite;
+}
+
+.loader::after {
+  transform: rotate3d(90, 90, 0, 180deg);
+  border-color: #FF3D00;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+  }
+
+  75%,
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+  }
+}
+
+.loder {
+  height: 89.4vh;
+  background-color: #388E3C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circal {
+  height: 25px;
+  width: 25px;
+  background-color: #FF3D00;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
