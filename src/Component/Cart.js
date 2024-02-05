@@ -1,47 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FaStar } from "react-icons/fa6";
 import { FaRupeeSign } from "react-icons/fa";
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { addcart } from "../counterSlice";
-import axios from 'axios';
+import { removecart } from '../counterSlice';
 export default function Cart() {
 
-      let [data, setdata] = useState(null);
       let dispach = useDispatch();
-      let array = [];
-      let newarray = useSelector((state) => state.counter.cartdata)
-      useEffect(() => {
-            array = [...newarray]
-            setdata([])
-            let z = []
-            for (let i = 0; i < array.length; i++) {
-
-                  axios.get(`https://dummyjson.com/products/${array[i]}`)
-                        .then(function (response) {
-                              z = [...z, response.data]
-                              console.log(array[i])
-                              setdata(z)
-                        })
-                        .catch(function (error) {
-                              console.log(error);
-                        })
-            }
-      }, [])
-
+      let newarray = useSelector((state) => state.counter.cartdata);
+      let total = useSelector((state) => state.counter.total)
+      const removedata = (item) => {
+            console.log(item)
+            let z = newarray.filter((data, index) => {
+                  return (index !== item);
+            })
+            let y = total - (newarray[item].item * newarray[item].price)
+            dispach(removecart({ z, y }));
+      }
       return (
-            data != null && <>
+            <>
                   {
-                        data.map((item, index) => {
+                        newarray.map((item, index) => {
                               return (
-                                    <div className="box" key={index}>
+                                    <div className="box m-3" key={index}>
                                           <div className="row m-0 p-0">
-                                                <div className="col-6 m-0 p-0">
-                                                      <div className="img">
-                                                            <img src={item.thumbnail} alt="" width={'100%'} height={'100%'} />
+                                                <div className="col-3 m-0 p-0 d-flex align-items-center justify-content-center">
+                                                      <div className="img cart-img text-center">
+                                                            <img src={item.thumbnail} alt="" height={'100%'} />
                                                       </div>
                                                 </div>
-                                                <div className="col-6 m-0">
+                                                <div className="col-9 m-0">
                                                       <div className="details">
                                                             <div className="tital">{item.title}</div>
                                                             <div className='description'>{item.description}</div>
@@ -49,19 +36,23 @@ export default function Cart() {
                                                                   <div className="rating" style={{ marginRight: '10px' }}>{item.rating} <FaStar style={{ marginLeft: '5px' }} /></div>
                                                                   (<span>{item.stock}</span>)</div>
                                                             <div>
-                                                                  <div className="prise"><FaRupeeSign />{item.price}</div>
-                                                                  <div className="discount"><FaRupeeSign />{item.discountPercentage}</div>
+                                                                  <div className="prise"><span style={{ fontWeight: '700' }}>Prise : </span><FaRupeeSign />{item.price}</div>
+                                                                  {/* <div className="discount"><FaRupeeSign />{item.discountPercentage}</div> */}
                                                                   <div className="off">{item.discountPercentage}% off</div>
                                                             </div>
                                                             <div className="brand"><span style={{ fontWeight: '700' }}>Brand : </span> {item.brand}</div>
                                                             <div className="category"><span style={{ fontWeight: '700' }}>Category :</span> {item.category}</div>
+                                                            <div className=''><span style={{ fontWeight: '700' }}>Items : </span><span>{item.item}</span></div>
+                                                            <div className='me-5'><span style={{ fontWeight: '700' }}>Final Prise : </span><span>{item.item * item.price}</span><button className='ms-5' onClick={() => { removedata(index) }}>Remove</button></div>
                                                       </div>
                                                 </div>
                                           </div>
+
                                     </div>
                               )
                         })
                   }
+                  < span > Final All Prise </ span> <span>{total}</span>
             </>
       )
 }

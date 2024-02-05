@@ -6,7 +6,7 @@ export default function Mainleftpart(props) {
 
     let dispach = useDispatch();
     const newdata = (z) => {
-        z = 'https://dummyjson.com/products/category/'.concat(z);
+        z = `https://dummyjson.com/products/category?limit=0'/${z}`;
         axios.get(z)
             .then(function (response) {
                 dispach(allproduct(response.data.products))

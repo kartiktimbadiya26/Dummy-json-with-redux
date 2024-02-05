@@ -4,6 +4,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import { useParams } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { addcart } from "../counterSlice";
+import { FaPlus, FaMinus } from "react-icons/fa6";
 import axios from 'axios';
 export default function Secondbody() {
       let dispach = useDispatch();
@@ -11,10 +12,10 @@ export default function Secondbody() {
       let [im, setim] = useState([])
       let [data, setdata] = useState(null);
       let { id } = useParams();
+      let [item, setitem] = useState(1);
       useEffect(() => {
             axios.get(`https://dummyjson.com/products/${id}`)
                   .then(function (response) {
-                        console.log(response.data)
                         setdata(response.data);
                         setim(response.data.thumbnail)
                   })
@@ -22,7 +23,17 @@ export default function Secondbody() {
                         console.log(error);
                   })
       }, [])
-
+      const adddata = (t_id) => {
+            axios.get(`https://dummyjson.com/products/${t_id}`)
+                  .then(function (response) {
+                        let data = response.data;
+                        data.item = item;
+                        dispach(addcart(data));
+                  })
+                  .catch(function (error) {
+                        console.log(error);
+                  })
+      }
       return (
             data != null && <>
                   <div className="second-main">
@@ -52,7 +63,12 @@ export default function Secondbody() {
                                                 </div>
                                                 <div className="brand"><span style={{ fontWeight: '700' }}>Brand : </span> {data.brand}</div>
                                                 <div className="category"><span style={{ fontWeight: '700' }}>Category :</span> {data.category}</div>
-                                                <button className="" onClick={() => { dispach(addcart(data.id)) }}>add...</button>
+                                                <div className="">
+                                                      <button onClick={() => { setitem(item - 1) }}><FaMinus /></button>
+                                                      <span className="value">{item}</span>
+                                                      <button onClick={() => { setitem(item + 1) }}><FaPlus /></button>
+                                                </div>
+                                                <button className="" onClick={() => { adddata(id) }}>add...</button>
                                           </div>
                                     </div>
                               </div>

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
 const initialState = {
     allcatdata: [],
     allprodata: [],
     cartdata: [],
+    total: 0,
 }
 
 export const counterSlice = createSlice({
@@ -17,12 +17,18 @@ export const counterSlice = createSlice({
             state.allprodata = action.payload
         },
         addcart: (state, action) => {
+            console.log(action.payload)
+            state.total = state.total + (action.payload.price * action.payload.item);
             state.cartdata = [...state.cartdata, action.payload]
-            console.log(state.cartdata)
-        }
+            console.log(state.total)
+        },
+        removecart: (state, action) => {
+            state.total = action.payload.y;
+            state.cartdata = action.payload.z;
+        },
     },
 })
 
-export const { allcategory, allproduct,addcart } = counterSlice.actions
+export const { allcategory, allproduct, addcart, removecart } = counterSlice.actions
 
 export default counterSlice.reducer

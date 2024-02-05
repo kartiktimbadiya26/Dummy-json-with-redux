@@ -3,9 +3,22 @@ import { FaRupeeSign } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addcart } from "../counterSlice";
+import axios from "axios";
 export default function Mainrightpart(props) {
 
     let dispach = useDispatch();
+
+    const adddata = (id) => {
+        axios.get(`https://dummyjson.com/products/${id}`)
+            .then(function (response) {
+                let data = response.data;
+                data.item = 1;
+                dispach(addcart(data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
     return (
         <>
             <div className="col-9 rightpart">
@@ -31,7 +44,7 @@ export default function Mainrightpart(props) {
                                     </div>
                                     <div className="brand"><span style={{ fontWeight: '700' }}>Brand : </span> {item.brand}</div>
                                     <div className="category"><span style={{ fontWeight: '700' }}>Category :</span> {item.category}</div>
-                                    <button className="" onClick={() => { dispach(addcart(item.id)) }}>add...</button>
+                                    <button className="" onClick={() => { adddata(item.id) }}>add...</button>
                                 </div>
                             </div>
                         )
