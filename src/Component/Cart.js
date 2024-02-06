@@ -1,8 +1,7 @@
-import React from 'react';
-import { FaStar } from "react-icons/fa6";
-import { FaRupeeSign } from "react-icons/fa";
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { removecart } from '../counterSlice';
+import { FaPlus, FaMinus } from "react-icons/fa6";
+import { removecart, changeqtep, changeqtem } from '../counterSlice';
 export default function Cart() {
 
       let dispach = useDispatch();
@@ -13,45 +12,50 @@ export default function Cart() {
             let z = newarray.filter((data, index) => {
                   return (index !== item);
             })
-            let y = total - (newarray[item].item * newarray[item].price)
+            let y = total - (newarray[item].qte * newarray[item].price)
             dispach(removecart({ z, y }));
       }
       return (
             <>
-                  {
-                        newarray.map((item, index) => {
-                              return (
-                                    <div className="box m-3" key={index}>
-                                          <div className="row m-0 p-0">
-                                                <div className="col-3 m-0 p-0 d-flex align-items-center justify-content-center">
-                                                      <div className="img cart-img text-center">
-                                                            <img src={item.thumbnail} alt="" height={'100%'} />
-                                                      </div>
-                                                </div>
-                                                <div className="col-9 m-0">
-                                                      <div className="details">
-                                                            <div className="tital">{item.title}</div>
-                                                            <div className='description'>{item.description}</div>
-                                                            <div className='stock'>
-                                                                  <div className="rating" style={{ marginRight: '10px' }}>{item.rating} <FaStar style={{ marginLeft: '5px' }} /></div>
-                                                                  (<span>{item.stock}</span>)</div>
-                                                            <div>
-                                                                  <div className="prise"><span style={{ fontWeight: '700' }}>Prise : </span><FaRupeeSign />{item.price}</div>
-                                                                  {/* <div className="discount"><FaRupeeSign />{item.discountPercentage}</div> */}
-                                                                  <div className="off">{item.discountPercentage}% off</div>
-                                                            </div>
-                                                            <div className="brand"><span style={{ fontWeight: '700' }}>Brand : </span> {item.brand}</div>
-                                                            <div className="category"><span style={{ fontWeight: '700' }}>Category :</span> {item.category}</div>
-                                                            <div className=''><span style={{ fontWeight: '700' }}>Items : </span><span>{item.item}</span></div>
-                                                            <div className='me-5'><span style={{ fontWeight: '700' }}>Final Prise : </span><span>{item.item * item.price}</span><button className='ms-5' onClick={() => { removedata(index) }}>Remove</button></div>
-                                                      </div>
-                                                </div>
-                                          </div>
+                  <table className="table table-striped">
+                        <thead>
+                              <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Detail</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Prise</th>
+                                    <th scope="col">Qte</th>
+                                    <th scope="col">Total Prise</th>
+                                    <th scope="col">Remove</th>
+                              </tr>
+                        </thead>
+                        <tbody>
 
-                                    </div>
-                              )
-                        })
-                  }
+                              {
+                                    newarray.map((item, index) => {
+                                          return (
+                                                <tr key={index}>
+                                                      <td>{item.id}</td>
+                                                      <td>{item.title}</td>
+                                                      <td>{item.description}</td>
+                                                      <td>
+                                                            <img src={item.thumbnail} alt="" height={"100px"} />
+                                                      </td>
+                                                      <td>{item.price}</td>
+                                                      <td>
+                                                            <button onClick={() => { dispach(changeqtem(index)) }}><FaMinus /></button>
+                                                            {item.qte}
+                                                            <button onClick={() => { dispach(changeqtep(index)) }}><FaPlus /></button>
+                                                      </td>
+                                                      <td>{item.qte * item.price}</td>
+                                                      <td><button className='ms-5' onClick={() => { removedata(index) }}>Remove</button></td>
+                                                </tr>
+                                          )
+                                    })
+                              }
+                        </tbody>
+                  </table >
                   < span > Final All Prise </ span> <span>{total}</span>
             </>
       )

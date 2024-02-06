@@ -12,7 +12,7 @@ export default function Mainrightpart(props) {
         axios.get(`https://dummyjson.com/products/${id}`)
             .then(function (response) {
                 let data = response.data;
-                data.item = 1;
+                data.qte = 1;
                 dispach(addcart(data));
             })
             .catch(function (error) {

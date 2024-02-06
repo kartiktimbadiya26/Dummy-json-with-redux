@@ -27,7 +27,7 @@ export default function Secondbody() {
             axios.get(`https://dummyjson.com/products/${t_id}`)
                   .then(function (response) {
                         let data = response.data;
-                        data.item = item;
+                        data.qte = item;
                         dispach(addcart(data));
                   })
                   .catch(function (error) {
