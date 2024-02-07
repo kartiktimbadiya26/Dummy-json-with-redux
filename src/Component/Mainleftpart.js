@@ -6,7 +6,7 @@ export default function Mainleftpart(props) {
 
     let dispach = useDispatch();
     const newdata = (z) => {
-        z = `https://dummyjson.com/products/category?limit=0'/${z}`;
+        z = `https://dummyjson.com/products/category/${z}`;
         axios.get(z)
             .then(function (response) {
                 dispach(allproduct(response.data.products))
@@ -23,7 +23,7 @@ export default function Mainleftpart(props) {
                     {
                         props.data.map((item, index) => {
                             return (
-                                <li key={index} onClick={() => { newdata(item) }}>{item}</li>
+                                <li key={index} onClick={() => { newdata(item) }} style={{cursor : 'pointer'}}>{item}</li>
                             )
                         })
                     }
